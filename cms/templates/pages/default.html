@@ -5,11 +5,20 @@
 <title>{{ page.title }}</title>
 </head>
 <body>
-{{ page.content }}
-<ul>
-{% for t in page.get_translations.all %}
-<li>{{ t.title }}</li>
+{% for name, value in page.get_fields %}
+  {% if value %}
+    <p>{{ name }} => {{ value }}</p>
+  {% endif %}
 {% endfor %}
-</ul>
+
+{% for translation in page.get_translations.all %}
+<p><a href="{{ translation.get_absolute_url }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
+{% endfor %}
+<p>translacje bez siebie:</p>
+	{% for translation in page.get_translations.all %}
+		{% ifnotequal translation.language_code page.language_code %}
+			<p><a href="{{ translation.get_absolute_url }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
+		{% endifnotequal %}
+	{% endfor %}
 </body>
 </html>

@@ -13,8 +13,8 @@ URL_TYPE_CHOICES = (
 )
 
 YES_NO_CHOICES = (
-            (True, _('yes')),
-            (False, _('no')),
+            (True, _('Yes')),
+            (False, _('No')),
 )
 
 
@@ -46,6 +46,11 @@ class Page(MPTTModel):
         verbose_name = _('page')
         verbose_name_plural = _('pages')
 
+    def save(self):
+        if self.is_master_page:
+            self.master_page = self
+        super(Page, self).save()
+
     def __unicode__(self):
         return u"%s -- %s" % (self.url, self.title)
 
@@ -62,10 +67,30 @@ class Page(MPTTModel):
             return None
 
     def get_translations(self):
+        '''
+        FIXME: nie zwraca nic w elsie
+        '''
         if self.is_master_page:
             return self.translations
         else:
             return self.master_page.translations
+
+    def get_language(self):
+        '''
+        returns language name
+        '''
+        for code, name in settings.LANGUAGES:
+            if self.language_code == code:
+                return name
+        else:
+            return None
+
+    def get_fields(self):
+        '''
+        returns all fields of Page model
+        rather for debug purpose
+        '''
+        return [(field.name, field.value_to_string(self)) for field in self._meta.fields]
 
     def is_published(self):
         return self.published and self.publish_date <= datetime.now()
