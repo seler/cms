@@ -5,7 +5,7 @@ import os
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 import sys
-sys.path.insert(0, PROJECT_PATH + '/..') # sciezka do folderu zawierajacego nasz cms. normalnie w aplikacji tego ma nie byc a cms powinien lezec w site-packages albo byc dodany do python path
+if PROJECT_PATH + '/..' not in sys.path: sys.path.insert(0, PROJECT_PATH + '/..') # sciezka do folderu zawierajacego nasz cms. normalnie w aplikacji tego ma nie byc a cms powinien lezec w site-packages albo byc dodany do python path
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -19,11 +19,11 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': PROJECT_PATH + '/cms.db',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'NAME': PROJECT_PATH + '/cms.db', # Or path to database file if using sqlite3.
+        'USER': '', # Not used with sqlite3.
+        'PASSWORD': '', # Not used with sqlite3.
+        'HOST': '', # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '', # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -41,6 +41,13 @@ TIME_ZONE = 'Europe/Warsaw'
 LANGUAGE_CODE = 'en'
 
 SITE_ID = 1
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('pl', 'Polski'),
+    ('fr', 'Française'),
+    ('ru', 'Россию'),
+)
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -106,6 +113,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'cms.middleware.PageFallbackMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'cms_test.urls'
@@ -116,6 +125,15 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.contrib.messages.context_processors.messages",
+)
+
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,9 +141,12 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.redirects',
     'django.contrib.admin',
     'django.contrib.admindocs',
     'cms',
+    'mptt',
+    'tagging',
 )
 
 # A sample logging configuration. The only tangible logging

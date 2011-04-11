@@ -1,0 +1,15 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
+    "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<title>{{ page.title }}</title>
+</head>
+<body>
+{{ page.content }}
+<ul>
+{% for t in page.get_translations.all %}
+<li>{{ t.title }}</li>
+{% endfor %}
+</ul>
+</body>
+</html>

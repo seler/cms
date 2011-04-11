@@ -1,40 +1,74 @@
 from django.db import models
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from mptt.models import MPTTModel, TreeForeignKey
+from datetime import datetime
+from django.contrib.auth.models import User
+from tagging.fields import TagField
 
-class Language(models.Model):
-    """
-    Languages definied for every site.
-    """
-    symbol = models.CharField(_('symbol'), max_length=5)
-    name = models.CharField(_('name'), max_length=100)
-    sites = models.ManyToManyField(Site)
-    
-    class Meta:
-        db_table = 'cms_language'
-        verbose_name = _('language')
-        verbose_name_plural = _('language')
-        ordering = ('symbol',)
+URL_TYPE_CHOICES = (
+            (False, _('slug')),
+            (True, _('URL')),
+)
 
-class Page(models.Model):
-    language = models.ManyToManyField(Language)
-    url = models.CharField(_('URL'), max_length=100, db_index=True)
+YES_NO_CHOICES = (
+            (True, _('yes')),
+            (False, _('no')),
+)
+
+
+class Page(MPTTModel):
+    parent = TreeForeignKey('self', null=True, blank=True, verbose_name=_('parent'), related_name=_('chidren'))
+    url = models.CharField(_('URL'), max_length=100, db_index=True, null=True, blank=True)
+    slug = models.SlugField(max_length=50, unique=True, verbose_name=_('slug'), null=True, blank=True)
+    url_type = models.BooleanField(blank=False, null=False, choices=URL_TYPE_CHOICES, verbose_name=_('URL type'), default=True)
+    publish_date = models.DateTimeField(default=datetime.now, verbose_name=_('publish date'))
+    last_modified = models.DateTimeField(default=datetime.now, verbose_name=_('last modified'))
+    menu_name = models.CharField(_('menu name'), max_length=100)
+    tags = TagField(max_length=100, blank=True, verbose_name=_('tags'))
+    author = models.ForeignKey(User, verbose_name=_('author'), blank=True, null=True)
+    published = models.BooleanField(choices=YES_NO_CHOICES, default=False, verbose_name=_('published'))
     title = models.CharField(_('title'), max_length=200)
     content = models.TextField(_('content'), blank=True)
-    enable_comments = models.BooleanField(_('enable comments'))
-    template_name = models.CharField(_('template name'), max_length=70, blank=True,
-        help_text=_("Example: 'pages/contact_page.html'. If this isn't provided, the system will use 'pages/default.html'."))
-    registration_required = models.BooleanField(_('registration required'), help_text=_("If this is checked, only logged-in users will be able to view the page."))
-    sites = models.ManyToManyField(Site)
+    enable_comments = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('enable comments'), default=False)
+    template_name = models.CharField(_('template name'), max_length=70, blank=True)
+    registration_required = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('registration required'), default=False)
+    sites = models.ManyToManyField(Site, verbose_name=_('sites'))
+
+    ### multilingual support
+    language_code = models.CharField(max_length=50, choices=settings.LANGUAGES, verbose_name=_('language code'))
+    is_master_page = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('is master page'), default=True)
+    master_page = models.ForeignKey('self', verbose_name=_('master page'), blank=True, null=True, related_name=_('translations'))
 
     class Meta:
         db_table = 'cms_page'
         verbose_name = _('page')
         verbose_name_plural = _('pages')
-        ordering = ('url',)
 
     def __unicode__(self):
         return u"%s -- %s" % (self.url, self.title)
 
     def get_absolute_url(self):
+        # TODO: dopisac zwracanie na podstawie url albo slug.
+        # jeli slug to ma pobierac slug nadrzednej page
         return self.url
+
+    def get_url_type(self):
+        for option_key, option_value in URL_TYPE_CHOICES:
+            if self.url_type == option_key:
+                return option_value
+        else:
+            return None
+
+    def get_translations(self):
+        if self.is_master_page:
+            return self.translations
+        else:
+            return self.master_page.translations
+
+    def is_published(self):
+        return self.published and self.publish_date <= datetime.now()
+
+    def was_modified(self):
+        return self.publish_date < self.last_modified

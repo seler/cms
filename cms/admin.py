@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib import admin
-from django.contrib.flatpages.models import FlatPage
+from cms.models import Page
 from django.utils.translation import ugettext_lazy as _
+from mptt.admin import MPTTModelAdmin
 
-
-class FlatpageForm(forms.ModelForm):
+"""
+class PageForm(forms.ModelForm):
     url = forms.RegexField(label=_("URL"), max_length=100, regex=r'^[-\w/\.~]+$',
         help_text = _("Example: '/about/contact/'. Make sure to have leading"
                       " and trailing slashes."),
@@ -12,11 +13,11 @@ class FlatpageForm(forms.ModelForm):
                           " dots, underscores, dashes, slashes or tildes."))
 
     class Meta:
-        model = FlatPage
+        model = Page
 
 
-class FlatPageAdmin(admin.ModelAdmin):
-    form = FlatpageForm
+class PageAdmin(admin.ModelAdmin):
+    form = PageForm
     fieldsets = (
         (None, {'fields': ('url', 'title', 'content', 'sites')}),
         (_('Advanced options'), {'classes': ('collapse',), 'fields': ('enable_comments', 'registration_required', 'template_name')}),
@@ -25,4 +26,7 @@ class FlatPageAdmin(admin.ModelAdmin):
     list_filter = ('sites', 'enable_comments', 'registration_required')
     search_fields = ('url', 'title')
 
-admin.site.register(FlatPage, FlatPageAdmin)
+admin.site.register(Page, PageAdmin)
+"""
+
+admin.site.register(Page, MPTTModelAdmin)
