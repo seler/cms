@@ -31,7 +31,7 @@ class Page(MPTTModel):
     is_translation = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('is translation'), default=False)
     language_code = models.CharField(max_length=50, choices=settings.LANGUAGES, verbose_name=_('language'), default=settings.LANGUAGE_CODE)
     last_modified = models.DateTimeField(default=datetime.now, verbose_name=_('last modified'))
-    menu_name = models.CharField(_('menu name'), max_length=100)
+    menu_name = models.CharField(_('menu name'), max_length=100, blank=True, null=True, help_text=_('String displayed in menu. If empty this page will not be shown in menu.'))
     parent = TreeForeignKey('self', null=True, blank=True, verbose_name=_('parent'), related_name=_('chidren'))
     publish_date = models.DateTimeField(default=datetime.now, verbose_name=_('publish date'))
     registration_required = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('registration required'), default=False)
@@ -41,7 +41,7 @@ class Page(MPTTModel):
     tags = TagField(max_length=100, blank=True, verbose_name=_('tags'))
     template_name = models.CharField(_('template name'), max_length=70, blank=True)
     title = models.CharField(_('title'), max_length=200)
-    translation_of = models.ForeignKey('self', verbose_name=_('translation of'), blank=True, null=True, related_name=_('translations'))
+    translates = models.ForeignKey('self', verbose_name=_('translates'), blank=True, null=True, related_name=_('translations'))
     url = models.CharField(_('URL'), max_length=100, null=True, blank=True)
     url_type = models.BooleanField(blank=False, null=False, choices=URL_TYPE_CHOICES, verbose_name=_('URL type'), default=False)
 
@@ -58,7 +58,7 @@ class Page(MPTTModel):
         self.absolute_url = self.get_absolute_url()
         super(Page, self).save()
         if not self.is_translation:
-            self.translation_of = self
+            self.translates = self
         super(Page, self).save()
 
     def __unicode__(self):
@@ -84,7 +84,7 @@ class Page(MPTTModel):
         if not self.is_translation:
             return self.translations
         else:
-            return self.translation_of.translations
+            return self.translates.translations
 
     def get_language(self):
         '''
