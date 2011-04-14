@@ -24,41 +24,47 @@ STATUS_CHOICES = (
 
 
 class Page(MPTTModel):
-    parent = TreeForeignKey('self', null=True, blank=True, verbose_name=_('parent'), related_name=_('chidren'))
-    url = models.CharField(_('URL'), max_length=100, db_index=True, null=True, blank=True)
-    slug = models.SlugField(max_length=50, unique=True, verbose_name=_('slug'), null=True, blank=True)
-    url_type = models.BooleanField(blank=False, null=False, choices=URL_TYPE_CHOICES, verbose_name=_('URL type'), default=True)
-    absolute_url = models.TextField()
-    publish_date = models.DateTimeField(default=datetime.now, verbose_name=_('publish date'))
-    last_modified = models.DateTimeField(default=datetime.now, verbose_name=_('last modified'))
-    menu_name = models.CharField(_('menu name'), max_length=100)
-    tags = TagField(max_length=100, blank=True, verbose_name=_('tags'))
+    absolute_url = models.TextField(editable=False, blank=True, null=True, unique=True)
     author = models.ForeignKey(User, verbose_name=_('author'), blank=True, null=True)
-    status = models.BooleanField(choices=STATUS_CHOICES, default=0, verbose_name=_('status'))
-    title = models.CharField(_('title'), max_length=200)
     content = models.TextField(_('content'), blank=True)
     enable_comments = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('enable comments'), default=False)
-    template_name = models.CharField(_('template name'), max_length=70, blank=True)
-    registration_required = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('registration required'), default=False)
-    sites = models.ManyToManyField(Site, verbose_name=_('sites'))
-
-    ### multilingual support
-    language_code = models.CharField(max_length=50, choices=settings.LANGUAGES, verbose_name=_('language code'))
     is_translation = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('is translation'), default=False)
+    language_code = models.CharField(max_length=50, choices=settings.LANGUAGES, verbose_name=_('language'), default=settings.LANGUAGE_CODE)
+    last_modified = models.DateTimeField(default=datetime.now, verbose_name=_('last modified'))
+    menu_name = models.CharField(_('menu name'), max_length=100)
+    parent = TreeForeignKey('self', null=True, blank=True, verbose_name=_('parent'), related_name=_('chidren'))
+    publish_date = models.DateTimeField(default=datetime.now, verbose_name=_('publish date'))
+    registration_required = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('registration required'), default=False)
+    sites = models.ManyToManyField(Site, verbose_name=_('sites'), null=True, blank=True)
+    slug = models.SlugField(max_length=50, verbose_name=_('slug'), null=False, blank=False)
+    status = models.BooleanField(choices=STATUS_CHOICES, default=0, verbose_name=_('status'))
+    tags = TagField(max_length=100, blank=True, verbose_name=_('tags'))
+    template_name = models.CharField(_('template name'), max_length=70, blank=True)
+    title = models.CharField(_('title'), max_length=200)
     translation_of = models.ForeignKey('self', verbose_name=_('translation of'), blank=True, null=True, related_name=_('translations'))
+    url = models.CharField(_('URL'), max_length=100, null=True, blank=True)
+    url_type = models.BooleanField(blank=False, null=False, choices=URL_TYPE_CHOICES, verbose_name=_('URL type'), default=False)
 
     class Meta:
         db_table = 'cms_page'
         verbose_name = _('page')
         verbose_name_plural = _('pages')
         permissions = (
-            ("view_drafts", "Can see drafts"),
+            ("view_drafts", _("Can see drafts")),
         )
 
+        def __init__(self, *args, **kwargs):
+            ''' TODO: language_code and author defaul value '''
+            super(Page, self).__init__(*args, **kwargs)
+            #self.fields["sites"].initial = Site.objects.get(pk=1)
+            #self.fields["language_code"].initial = Site.objects.get(id=1)
+            #self.fields["author"].initial = Site.objects.get(id=1)
+
     def save(self):
+        self.absolute_url = self.get_absolute_url()
+        super(Page, self).save()
         if not self.is_translation:
             self.translation_of = self
-        self.absolute_url = self.get_absolute_url()
         super(Page, self).save()
 
     def __unicode__(self):
@@ -84,7 +90,7 @@ class Page(MPTTModel):
         if not self.is_translation:
             return self.translations
         else:
-            return self.translation_of.translations
+            return self.translation_of.get_translations()
 
     def get_language(self):
         '''
@@ -119,13 +125,3 @@ class Page(MPTTModel):
 
     def was_modified(self):
         return self.publish_date < self.last_modified
-
-    def has_translations(self):
-        if self.is_translation:
-            t = self.translation_of.get_translations()
-        else:
-            t = self.translations
-        if len(t):
-            return True
-        else:
-            return False

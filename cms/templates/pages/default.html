@@ -10,17 +10,14 @@
     <p>{{ name }} => {{ value }}</p>
   {% endif %}
 {% endfor %}
-
-{% if page.has_translations %} sa tlumaczenia {% else %} nie ma tlumaczen {% endif %}
-
-{% for translation in page.get_translations.all %}
-<p><a href="{{ translation.get_absolute_url }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
-{% endfor %}
-<p>translacje bez siebie:</p>
+{{ page.has_translations }}
+{% ifnotequal page.get_translations.count 1 %}
+	<p>tlumaczenia:</p>
 	{% for translation in page.get_translations.all %}
 		{% ifnotequal translation.language_code page.language_code %}
 			<p><a href="{{ translation.get_absolute_url }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
 		{% endifnotequal %}
 	{% endfor %}
+{% else %} nie ma tlumaczen {% endifnotequal %}
 </body>
 </html>
