@@ -1,11 +1,12 @@
 from cms.models import Page
 from django.template import loader, RequestContext
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.conf import settings
 from django.core.xheaders import populate_xheaders
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
+from django.db.models.base import get_absolute_url
 
 DEFAULT_TEMPLATE = 'pages/default.html'
 
@@ -18,21 +19,11 @@ DEFAULT_TEMPLATE = 'pages/default.html'
 # without any CSRF checks. Therefore, we only
 # CSRF protect the internal implementation.
 def page(request, url):
-    """
-    Public interface to the page view.
-
-    Models: `pages.pages`
-    Templates: Uses the template defined by the ``template_name`` field,
-        or `pages/default.html` if template_name is not defined.
-    Context:
-        page
-            `pages.pages` object
-    """
     if not url.endswith('/') and settings.APPEND_SLASH:
         return HttpResponseRedirect("%s/" % request.path)
     if not url.startswith('/'):
         url = "/" + url
-    f = get_object_or_404(Page, url__exact=url, sites__id__exact=settings.SITE_ID)
+    f = get_object_or_404(Page, absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
     return render_page(request, f)
 
 @csrf_protect
@@ -42,6 +33,9 @@ def render_page(request, p):
     """
     # If registration is required for accessing this page, and the user isn't
     # logged in, redirect to the login page.
+    # If page is not pusblished and user is not admin of pages then raises 404
+    if not p.is_published() and not request.user.has_perm('cms.view_drafts'):
+        raise Http404
     if p.registration_required and not request.user.is_authenticated():
         from django.contrib.auth.views import redirect_to_login
         return redirect_to_login(request.path)

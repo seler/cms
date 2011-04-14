@@ -11,6 +11,8 @@
   {% endif %}
 {% endfor %}
 
+{% if page.has_translations %} sa tlumaczenia {% else %} nie ma tlumaczen {% endif %}
+
 {% for translation in page.get_translations.all %}
 <p><a href="{{ translation.get_absolute_url }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
 {% endfor %}
