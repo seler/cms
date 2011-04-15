@@ -28,7 +28,7 @@ class Page(MPTTModel):
     author = models.ForeignKey(User, verbose_name=_('author'), blank=True, null=True)
     content = models.TextField(_('content'), blank=True)
     enable_comments = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('enable comments'), default=False)
-    is_translation = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('is translation'), default=False)
+    is_translation = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('is translation'), default=False, editable=False)
     language_code = models.CharField(max_length=50, choices=settings.LANGUAGES, verbose_name=_('language'), default=settings.LANGUAGE_CODE)
     last_modified = models.DateTimeField(default=datetime.now, verbose_name=_('last modified'))
     menu_name = models.CharField(_('menu name'), max_length=100, blank=True, null=True, help_text=_('String displayed in menu. If empty this page will not be shown in menu.'))
@@ -45,7 +45,6 @@ class Page(MPTTModel):
     url = models.CharField(_('URL'), max_length=100, null=True, blank=True)
     url_type = models.BooleanField(blank=False, null=False, choices=URL_TYPE_CHOICES, verbose_name=_('URL type'), default=False)
 
-
     class Meta:
         db_table = 'cms_page'
         verbose_name = _('page')
@@ -57,8 +56,12 @@ class Page(MPTTModel):
     def save(self):
         self.absolute_url = self.get_absolute_url()
         super(Page, self).save()
-        if not self.is_translation:
+        if self.translates == None:
             self.translates = self
+        if self.translates == self:
+            self.is_translation = False
+        else:
+            self.is_translation = True
         super(Page, self).save()
 
     def __unicode__(self):
@@ -85,6 +88,12 @@ class Page(MPTTModel):
             return self.translations
         else:
             return self.translates.translations
+
+    def get_translations_langs(self):
+        langs = []
+        for i in self.translations.all():
+            langs.append(i.language_code)
+        return langs
 
     def get_language(self):
         '''
