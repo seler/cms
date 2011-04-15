@@ -9,3 +9,10 @@ def get_language(language_code):
             return name
     else:
         return None
+
+def first_not_empty(*args):
+    for i in args:
+        if i != '':
+            return i
+    else:
+        return None

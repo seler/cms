@@ -6,6 +6,7 @@ from mptt.models import MPTTModel, TreeForeignKey
 from datetime import datetime
 from django.contrib.auth.models import User
 from tagging.fields import TagField
+from cms.helpers import first_not_empty
 
 URL_TYPE_CHOICES = (
             (False, _('slug')),
@@ -24,7 +25,7 @@ STATUS_CHOICES = (
 
 
 class Page(MPTTModel):
-    absolute_url = models.TextField(editable=False, blank=True, null=True, unique=True)
+    absolute_url = models.TextField(editable=False, blank=True, null=True)
     author = models.ForeignKey(User, verbose_name=_('author'), blank=True, null=True)
     content = models.TextField(_('content'), blank=True)
     enable_comments = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('enable comments'), default=False)
@@ -65,7 +66,7 @@ class Page(MPTTModel):
         super(Page, self).save()
 
     def __unicode__(self):
-        return u"%s -- %s (%s)" % (self.menu_name, self.title, self.get_absolute_url())
+        return u"%s - %s [%s]" % (first_not_empty(self.menu_name, self.title), self.get_absolute_url(), self.language_code)
 
     def get_absolute_url(self):
         if self.url_type == False:   # if url type is slug

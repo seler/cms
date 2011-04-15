@@ -1,7 +1,7 @@
 #!/bin/bash
 ip=`ifconfig  | grep 'inet addr:'| grep -v '127.0.0.1' | cut -d: -f2 | awk '{ print $1}'`
 rm cms.db
-sed s/'^ *"name": "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}"$'/'      "name": "'$ip'"'/ initial_data.json > test
+#sed s/'^ *"domain": "[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}"$'/'      "domain": "'$ip'"'/ initial_data.json > initial_data.json
 
 python manage.py syncdb --noinput
 sudo python manage.py runserver $ip:80

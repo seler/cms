@@ -29,16 +29,16 @@
     "pk": 2, 
     "model": "sites.site", 
     "fields": {
-      "domain": "another.domain.com", 
-      "name": "192.168.30.139"
+      "domain": "192.168.30.139", 
+      "name": "another.domain.com"
     }
   }, 
   {
     "pk": 1, 
     "model": "sites.site", 
     "fields": {
-      "domain": "domain.com", 
-      "name": "192.168.30.139"
+      "domain": "192.168.30.139", 
+      "name": "domain.com"
     }
   },
   {

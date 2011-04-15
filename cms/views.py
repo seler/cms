@@ -7,24 +7,36 @@ from django.core.xheaders import populate_xheaders
 from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from django.db.models.base import get_absolute_url
+from django.utils import translation
 
 DEFAULT_TEMPLATE = 'pages/default.html'
 
-# This view is called from PageFallbackMiddleware.process_response
-# when a 404 is raised, which often means CsrfViewMiddleware.process_view
-# has not been called even if CsrfViewMiddleware is installed. So we need
-# to use @csrf_protect, in case the template needs {% csrf_token %}.
-# However, we can't just wrap this view; if no matching page exists,
-# or a redirect is required for authentication, the 404 needs to be returned
-# without any CSRF checks. Therefore, we only
-# CSRF protect the internal implementation.
 def page(request, url):
     if not url.endswith('/') and settings.APPEND_SLASH:
         return HttpResponseRedirect("%s/" % request.path)
     if not url.startswith('/'):
         url = "/" + url
-    f = get_object_or_404(Page, absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
-    return render_page(request, f)
+
+    if 'lang' not in request.COOKIES:
+        translation.activate(translation.get_language_from_request(request))
+        request.COOKIES['lang'] = translation.get_language_from_request(request)
+    if 'lang' in request.GET:
+        if translation.check_for_language(request.GET['lang']):
+            translation.activate(request.GET['lang'])
+            request.COOKIES['lang'] = request.GET['lang']
+
+    p = Page.objects.filter(absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
+    if len(p.all()) == 0:
+        raise Http404
+    elif len(p.all()) > 1:
+        #p1 = p.filter(language_code=translation.get_language_from_request(request))
+        p1 = p.filter(language_code=translation.get_language())
+        if len(p1.all()) == 0:
+            p1 = p.filter(language_code=settings.LANGUAGE_CODE)
+        p = p1[0]
+    else: p = p[0]
+    #f = get_object_or_404(Page, absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
+    return render_page(request, p)
 
 @csrf_protect
 def render_page(request, p):

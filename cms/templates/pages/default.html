@@ -15,7 +15,7 @@
 	<p>tlumaczenia:</p>
 	{% for translation in page.get_translations.all %}
 		{% ifnotequal translation.language_code page.language_code %}
-			<p><a href="{{ translation.get_absolute_url }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
+			<p><a href="{{ translation.get_absolute_url }}?lang={{ translation.language_code }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
 		{% endifnotequal %}
 	{% endfor %}
 {% else %} nie ma tlumaczen {% endifnotequal %}
