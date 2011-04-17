@@ -29,9 +29,16 @@ class PageForm(forms.ModelForm):
         if a != None:
             if a.language_code == self.cleaned_data.get('language_code'):
                 raise forms.ValidationError(_("Language of current page and translated page connot be the same."))
-            if self.cleaned_data.get('language_code') in a.get_translations_langs():
+            if self.instance not in a.translations.all() and self.cleaned_data.get('language_code') in a.get_translations_langs():
                 raise forms.ValidationError(_("This page already has translation in %s language." % (get_language(self.cleaned_data.get('language_code')))))
         return a
+
+    def clean_url(self):
+        url_type = self.cleaned_data.get('url_type')
+        url = self.cleaned_data.get('url')
+        if  url_type == True and len(url) == 0:
+            raise forms.ValidationError(_("You must insert url or use URL type as slug."))
+        return url
 
     def clean_parent(self):
         parent = self.cleaned_data.get('parent')

@@ -8,6 +8,7 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_protect
 from django.db.models.base import get_absolute_url
 from django.utils import translation
+from datetime import datetime
 
 DEFAULT_TEMPLATE = 'pages/default.html'
 
@@ -25,17 +26,18 @@ def page(request, url):
             translation.activate(request.GET['lang'])
             request.COOKIES['lang'] = request.GET['lang']
 
-    p = Page.objects.filter(absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
-    if len(p.all()) == 0:
+    pages = Page.objects.filter(absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
+    if not request.user.has_perm('cms.view_drafts'):
+        pages.filter(status=1).exclude(publish_date__gte=datetime.now())
+    if len(pages.all()) > 1:
+        try:
+            p = pages.get(language_code=translation.get_language())
+        except:
+            p = pages.get(language_code=settings.LANGUAGE_CODE)
+    elif len(pages.all()) == 1:
+        p = pages[0]
+    else:
         raise Http404
-    elif len(p.all()) > 1:
-        #p1 = p.filter(language_code=translation.get_language_from_request(request))
-        p1 = p.filter(language_code=translation.get_language())
-        if len(p1.all()) == 0:
-            p1 = p.filter(language_code=settings.LANGUAGE_CODE)
-        p = p1[0]
-    else: p = p[0]
-    #f = get_object_or_404(Page, absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
     return render_page(request, p)
 
 @csrf_protect
@@ -46,8 +48,6 @@ def render_page(request, p):
     # If registration is required for accessing this page, and the user isn't
     # logged in, redirect to the login page.
     # If page is not pusblished and user is not admin of pages then raises 404
-    if not p.is_published() and not request.user.has_perm('cms.view_drafts'):
-        raise Http404
     if p.registration_required and not request.user.is_authenticated():
         from django.contrib.auth.views import redirect_to_login
         return redirect_to_login(request.path)
