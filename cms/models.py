@@ -25,7 +25,6 @@ STATUS_CHOICES = (
 
 
 class Page(MPTTModel):
-    absolute_url = models.TextField(editable=False, blank=True, null=True)
     author = models.ForeignKey(User, verbose_name=_('author'), blank=True, null=True)
     content = models.TextField(_('content'), blank=True)
     enable_comments = models.BooleanField(choices=YES_NO_CHOICES, verbose_name=_('enable comments'), default=False)
@@ -55,7 +54,6 @@ class Page(MPTTModel):
         )
 
     def save(self):
-        self.absolute_url = self.get_absolute_url()
         super(Page, self).save()
         if self.translates == None:
             self.translates = self
@@ -126,6 +124,12 @@ class Page(MPTTModel):
     def is_published(self):
         ''' Checks if page has status of published and publish date is in past. '''
         return self.status == 1 and self.publish_date <= datetime.now()
+
+    def show_in_menu(self):
+        if len(self.menu_name) == 0:
+            return False
+        else:
+            return True
 
     def was_modified(self):
         return self.publish_date < self.last_modified

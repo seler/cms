@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.db.models.base import get_absolute_url
 from django.utils import translation
 from datetime import datetime
+from django.db.models.query import QuerySet
 
 DEFAULT_TEMPLATE = 'pages/default.html'
 
@@ -18,17 +19,22 @@ def page(request, url):
     if not url.startswith('/'):
         url = "/" + url
 
+
     if 'lang' not in request.COOKIES:
         translation.activate(translation.get_language_from_request(request))
-        request.COOKIES['lang'] = translation.get_language_from_request(request)
     if 'lang' in request.GET:
         if translation.check_for_language(request.GET['lang']):
             translation.activate(request.GET['lang'])
-            request.COOKIES['lang'] = request.GET['lang']
 
-    pages = Page.objects.filter(absolute_url__exact=url, sites__id__exact=settings.SITE_ID)
+    pages = Page.objects.filter(sites__id__exact=settings.SITE_ID)
+    for p in pages:
+        if url != p.get_absolute_url():
+            pages = pages.exclude(pk=p.pk)
+
+    if not request.user.is_authenticated():
+        pages = pages.filter(registration_required=False)
     if not request.user.has_perm('cms.view_drafts'):
-        pages.filter(status=1).exclude(publish_date__gte=datetime.now())
+        pages = pages.filter(status=1).exclude(publish_date__gte=datetime.now())
     if len(pages.all()) > 1:
         try:
             p = pages.get(language_code=translation.get_language())
@@ -38,6 +44,7 @@ def page(request, url):
         p = pages[0]
     else:
         raise Http404
+    translation.activate(p.language_code)
     return render_page(request, p)
 
 @csrf_protect
@@ -64,7 +71,9 @@ def render_page(request, p):
 
     c = RequestContext(request, {
         'page': p,
+        'user': request.user,
     })
     response = HttpResponse(t.render(c))
+    response.set_cookie('lang', value=translation.get_language(), max_age=(3600 * 24 * 7))
     populate_xheaders(request, response, Page, p.id)
     return response

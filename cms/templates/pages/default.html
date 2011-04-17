@@ -5,6 +5,8 @@
 <title>{{ page.title }}</title>
 </head>
 <body>
+{% include "pages/menu.html" %}
+
 {% for name, value in page.get_fields %}
   {% if value %}
     <p>{{ name }} => {{ value }}</p>
@@ -14,9 +16,9 @@
 {% ifnotequal page.get_translations.count 1 %}
 	<p>tlumaczenia:</p>
 	{% for translation in page.get_translations.all %}
-		{% ifnotequal translation.language_code page.language_code %}
+		{% if translation.language_code != page.language_code and translation.is_published %}
 			<p><a href="{{ translation.get_absolute_url }}?lang={{ translation.language_code }}">{{ translation.get_language }}, {{ translation.title }}</a></p>
-		{% endifnotequal %}
+		{% endif %}
 	{% endfor %}
 {% else %} nie ma tlumaczen {% endifnotequal %}
 </body>

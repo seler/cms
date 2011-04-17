@@ -61,7 +61,7 @@ class PageAdmin(MPTTModelAdmin):
                  (None, {'fields': ('parent', 'title', 'menu_name', 'slug', 'status', 'author', 'content')}),
                  (_('Advanced options'), {'classes': ('collapse',), 'fields': ('url_type', 'url', 'tags', 'publish_date', 'last_modified', 'enable_comments', 'registration_required', 'template_name', 'sites')}),
                  )
-    list_filter = ('sites', 'language_code', 'registration_required')
+    list_filter = ('sites', 'language_code', 'registration_required', 'status')
     search_fields = ('url', 'title')
     prepopulated_fields = {'slug': ('title',)}
 
