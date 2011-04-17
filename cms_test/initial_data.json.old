@@ -1,0 +1,236 @@
+[
+  {
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+      "username": "seler", 
+      "first_name": "Rafa\u0142", 
+      "last_name": "Selewo\u0144ko", 
+      "is_active": true, 
+      "is_superuser": true, 
+      "is_staff": true, 
+      "last_login": "2011-04-15 01:52:09", 
+      "groups": [], 
+      "user_permissions": [], 
+      "password": "sha1$cb11a$fed72d14a69c9fa8d1b9c0a75f3d01aff3550457", 
+      "email": "rafal@selewonko.com", 
+      "date_joined": "2011-04-15 01:51:51"
+    }
+  },
+  {
+    "pk": "23c8f9a7f9c8aeebbc8af007414d91f9", 
+    "model": "sessions.session", 
+    "fields": {
+      "expire_date": "2012-04-29 01:52:09", 
+      "session_data": "NmIxNDFjNDBmNmVjNGZlODI1NDdlYjkzMTNjZjYyMTU4MjdhNWI2NzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQRLAXUu\n"
+    }
+  },
+  {
+    "pk": 2, 
+    "model": "sites.site", 
+    "fields": {
+      "domain": "192.168.30.139", 
+      "name": "another.domain.com"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "sites.site", 
+    "fields": {
+      "domain": "192.168.30.139", 
+      "name": "domain.com"
+    }
+  },
+  {
+    "pk": 1, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 4, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "en", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": false, 
+      "sites": [
+        1
+      ], 
+      "content": "Home page content.", 
+      "tree_id": 1, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Home", 
+      "last_modified": "2011-04-15 03:19:11", 
+      "url_type": false, 
+      "slug": "home", 
+      "level": 0, 
+      "url": "", 
+      "absolute_url": "/home/", 
+      "title": "Home page", 
+      "translates": 1, 
+      "publish_date": "2011-04-15 03:19:11"
+    }
+  }, 
+  {
+    "pk": 2, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 4, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "pl", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "Tre\u015b\u0107 strony g\u0142\u00f3wnej", 
+      "tree_id": 2, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Strona g\u0142\u00f3wna", 
+      "last_modified": "2011-04-15 03:21:33", 
+      "url_type": false, 
+      "slug": "glowna", 
+      "level": 0, 
+      "url": "", 
+      "absolute_url": "/glowna/", 
+      "title": "Strona g\u0142\u00f3wna", 
+      "translates": 1, 
+      "publish_date": "2011-04-15 03:21:33"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 4, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "fr", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "Accueil", 
+      "tree_id": 3, 
+      "enable_comments": false, 
+      "status": false, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Accueil", 
+      "last_modified": "2011-04-15 03:22:13", 
+      "url_type": false, 
+      "slug": "accueil", 
+      "level": 0, 
+      "url": "", 
+      "absolute_url": "/accueil/", 
+      "title": "Accueil", 
+      "translates": 1, 
+      "publish_date": "2011-04-15 03:22:13"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 3, 
+      "template_name": "", 
+      "lft": 2, 
+      "language_code": "en", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": false, 
+      "sites": [
+        1
+      ], 
+      "content": "ass", 
+      "tree_id": 1, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 1, 
+      "tags": "", 
+      "menu_name": "ass", 
+      "last_modified": "2011-04-15 03:22:57", 
+      "url_type": false, 
+      "slug": "ass", 
+      "level": 1, 
+      "url": "", 
+      "absolute_url": "/home/ass/", 
+      "title": "ass", 
+      "translates": 4, 
+      "publish_date": "2011-04-15 03:22:57"
+    }
+  }, 
+  {
+    "pk": 5, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 3, 
+      "template_name": "", 
+      "lft": 2, 
+      "language_code": "pl", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "dupa", 
+      "tree_id": 2, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 2, 
+      "tags": "", 
+      "menu_name": "dupa", 
+      "last_modified": "2011-04-15 03:32:59", 
+      "url_type": false, 
+      "slug": "dupa", 
+      "level": 1, 
+      "url": "", 
+      "absolute_url": "/glowna/dupa/", 
+      "title": "dupa", 
+      "translates": 4, 
+      "publish_date": "2011-04-15 03:32:59"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 3, 
+      "template_name": "", 
+      "lft": 2, 
+      "language_code": "fr", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "cul", 
+      "tree_id": 3, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 3, 
+      "tags": "", 
+      "menu_name": "cul", 
+      "last_modified": "2011-04-15 03:33:22", 
+      "url_type": false, 
+      "slug": "cul", 
+      "level": 1, 
+      "url": "", 
+      "absolute_url": "/accueil/cul/", 
+      "title": "cul", 
+      "translates": 4, 
+      "publish_date": "2011-04-15 03:33:22"
+    }
+  }
+]

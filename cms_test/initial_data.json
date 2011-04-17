@@ -4,48 +4,24 @@
     "model": "auth.user", 
     "fields": {
       "username": "seler", 
-      "first_name": "Rafa\u0142", 
-      "last_name": "Selewo\u0144ko", 
+      "first_name": "", 
+      "last_name": "", 
       "is_active": true, 
       "is_superuser": true, 
       "is_staff": true, 
-      "last_login": "2011-04-15 01:52:09", 
+      "last_login": "2011-04-17 19:58:58", 
       "groups": [], 
       "user_permissions": [], 
-      "password": "sha1$cb11a$fed72d14a69c9fa8d1b9c0a75f3d01aff3550457", 
+      "password": "sha1$0598c$e12c9cec431e4cc248eb13bef47dd66e943107cc", 
       "email": "rafal@selewonko.com", 
-      "date_joined": "2011-04-15 01:51:51"
-    }
-  },
-  {
-    "pk": "23c8f9a7f9c8aeebbc8af007414d91f9", 
-    "model": "sessions.session", 
-    "fields": {
-      "expire_date": "2012-04-29 01:52:09", 
-      "session_data": "NmIxNDFjNDBmNmVjNGZlODI1NDdlYjkzMTNjZjYyMTU4MjdhNWI2NzqAAn1xAShVEl9hdXRoX3Vz\nZXJfYmFja2VuZHECVSlkamFuZ28uY29udHJpYi5hdXRoLmJhY2tlbmRzLk1vZGVsQmFja2VuZHED\nVQ1fYXV0aF91c2VyX2lkcQRLAXUu\n"
-    }
-  },
-  {
-    "pk": 2, 
-    "model": "sites.site", 
-    "fields": {
-      "domain": "192.168.30.139", 
-      "name": "another.domain.com"
-    }
-  }, 
-  {
-    "pk": 1, 
-    "model": "sites.site", 
-    "fields": {
-      "domain": "192.168.30.139", 
-      "name": "domain.com"
+      "date_joined": "2011-04-17 17:06:08"
     }
   },
   {
     "pk": 1, 
     "model": "cms.page", 
     "fields": {
-      "rght": 4, 
+      "rght": 10, 
       "template_name": "", 
       "lft": 1, 
       "language_code": "en", 
@@ -55,90 +31,25 @@
       "sites": [
         1
       ], 
-      "content": "Home page content.", 
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
       "tree_id": 1, 
       "enable_comments": false, 
       "status": true, 
       "parent": null, 
       "tags": "", 
       "menu_name": "Home", 
-      "last_modified": "2011-04-15 03:19:11", 
-      "url_type": false, 
-      "slug": "home", 
+      "last_modified": "2011-04-17 17:07:36", 
+      "url_type": true, 
+      "slug": "home-page", 
       "level": 0, 
-      "url": "", 
-      "absolute_url": "/home/", 
+      "url": "/", 
       "title": "Home page", 
       "translates": 1, 
-      "publish_date": "2011-04-15 03:19:11"
+      "publish_date": "2011-04-17 17:07:36"
     }
   }, 
   {
     "pk": 2, 
-    "model": "cms.page", 
-    "fields": {
-      "rght": 4, 
-      "template_name": "", 
-      "lft": 1, 
-      "language_code": "pl", 
-      "registration_required": false, 
-      "author": 1, 
-      "is_translation": true, 
-      "sites": [
-        1
-      ], 
-      "content": "Tre\u015b\u0107 strony g\u0142\u00f3wnej", 
-      "tree_id": 2, 
-      "enable_comments": false, 
-      "status": true, 
-      "parent": null, 
-      "tags": "", 
-      "menu_name": "Strona g\u0142\u00f3wna", 
-      "last_modified": "2011-04-15 03:21:33", 
-      "url_type": false, 
-      "slug": "glowna", 
-      "level": 0, 
-      "url": "", 
-      "absolute_url": "/glowna/", 
-      "title": "Strona g\u0142\u00f3wna", 
-      "translates": 1, 
-      "publish_date": "2011-04-15 03:21:33"
-    }
-  }, 
-  {
-    "pk": 3, 
-    "model": "cms.page", 
-    "fields": {
-      "rght": 4, 
-      "template_name": "", 
-      "lft": 1, 
-      "language_code": "fr", 
-      "registration_required": false, 
-      "author": 1, 
-      "is_translation": true, 
-      "sites": [
-        1
-      ], 
-      "content": "Accueil", 
-      "tree_id": 3, 
-      "enable_comments": false, 
-      "status": false, 
-      "parent": null, 
-      "tags": "", 
-      "menu_name": "Accueil", 
-      "last_modified": "2011-04-15 03:22:13", 
-      "url_type": false, 
-      "slug": "accueil", 
-      "level": 0, 
-      "url": "", 
-      "absolute_url": "/accueil/", 
-      "title": "Accueil", 
-      "translates": 1, 
-      "publish_date": "2011-04-15 03:22:13"
-    }
-  }, 
-  {
-    "pk": 4, 
     "model": "cms.page", 
     "fields": {
       "rght": 3, 
@@ -151,26 +62,149 @@
       "sites": [
         1
       ], 
-      "content": "ass", 
+      "content": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
       "tree_id": 1, 
       "enable_comments": false, 
       "status": true, 
       "parent": 1, 
       "tags": "", 
-      "menu_name": "ass", 
-      "last_modified": "2011-04-15 03:22:57", 
+      "menu_name": "Arse", 
+      "last_modified": "2011-04-17 17:08:44", 
       "url_type": false, 
-      "slug": "ass", 
+      "slug": "arse", 
       "level": 1, 
       "url": "", 
-      "absolute_url": "/home/ass/", 
-      "title": "ass", 
+      "title": "Arse", 
+      "translates": 2, 
+      "publish_date": "2011-04-17 17:08:44"
+    }
+  }, 
+  {
+    "pk": 3, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 5, 
+      "template_name": "", 
+      "lft": 4, 
+      "language_code": "en", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": false, 
+      "sites": [
+        1
+      ], 
+      "content": "This page is only a draft.\r\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
+      "tree_id": 1, 
+      "enable_comments": false, 
+      "status": false, 
+      "parent": 1, 
+      "tags": "", 
+      "menu_name": "Draft", 
+      "last_modified": "2011-04-17 17:09:07", 
+      "url_type": false, 
+      "slug": "draft-page", 
+      "level": 1, 
+      "url": "", 
+      "title": "Draft page", 
+      "translates": 3, 
+      "publish_date": "2011-04-17 17:09:07"
+    }
+  }, 
+  {
+    "pk": 4, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 7, 
+      "template_name": "", 
+      "lft": 6, 
+      "language_code": "en", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": false, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 1, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 1, 
+      "tags": "", 
+      "menu_name": "", 
+      "last_modified": "2011-04-17 17:22:35", 
+      "url_type": false, 
+      "slug": "not-in-menu", 
+      "level": 1, 
+      "url": "", 
+      "title": "Not in menu", 
       "translates": 4, 
-      "publish_date": "2011-04-15 03:22:57"
+      "publish_date": "2011-04-17 17:22:35"
     }
   }, 
   {
     "pk": 5, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 2, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "en", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": false, 
+      "sites": [
+        2
+      ], 
+      "content": "", 
+      "tree_id": 2, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Other site", 
+      "last_modified": "2011-04-17 17:23:55", 
+      "url_type": false, 
+      "slug": "other-site", 
+      "level": 0, 
+      "url": "", 
+      "title": "Other site", 
+      "translates": 5, 
+      "publish_date": "2011-04-17 17:23:55"
+    }
+  }, 
+  {
+    "pk": 6, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 10, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "pl", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 3, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Strona g\u0142\u00f3wna", 
+      "last_modified": "2011-04-17 18:54:13", 
+      "url_type": true, 
+      "slug": "strona-glowna", 
+      "level": 0, 
+      "url": "/", 
+      "title": "Strona g\u0142\u00f3wna", 
+      "translates": 1, 
+      "publish_date": "2011-04-17 18:54:13"
+    }
+  }, 
+  {
+    "pk": 7, 
     "model": "cms.page", 
     "fields": {
       "rght": 3, 
@@ -183,26 +217,211 @@
       "sites": [
         1
       ], 
-      "content": "dupa", 
-      "tree_id": 2, 
+      "content": "", 
+      "tree_id": 3, 
       "enable_comments": false, 
       "status": true, 
-      "parent": 2, 
+      "parent": 6, 
       "tags": "", 
-      "menu_name": "dupa", 
-      "last_modified": "2011-04-15 03:32:59", 
+      "menu_name": "Dupa", 
+      "last_modified": "2011-04-17 18:54:59", 
       "url_type": false, 
       "slug": "dupa", 
       "level": 1, 
       "url": "", 
-      "absolute_url": "/glowna/dupa/", 
-      "title": "dupa", 
-      "translates": 4, 
-      "publish_date": "2011-04-15 03:32:59"
+      "title": "Dupa", 
+      "translates": 2, 
+      "publish_date": "2011-04-17 18:54:59"
     }
   }, 
   {
-    "pk": 6, 
+    "pk": 8, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 5, 
+      "template_name": "", 
+      "lft": 4, 
+      "language_code": "pl", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 3, 
+      "enable_comments": false, 
+      "status": false, 
+      "parent": 6, 
+      "tags": "", 
+      "menu_name": "Projekt", 
+      "last_modified": "2011-04-17 18:55:32", 
+      "url_type": false, 
+      "slug": "projekt", 
+      "level": 1, 
+      "url": "", 
+      "title": "Projekt", 
+      "translates": 3, 
+      "publish_date": "2011-04-17 18:55:32"
+    }
+  }, 
+  {
+    "pk": 9, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 7, 
+      "template_name": "", 
+      "lft": 6, 
+      "language_code": "pl", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 3, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 6, 
+      "tags": "", 
+      "menu_name": "", 
+      "last_modified": "2011-04-17 18:56:28", 
+      "url_type": false, 
+      "slug": "nie-w-menu", 
+      "level": 1, 
+      "url": "", 
+      "title": "Nie w menu", 
+      "translates": 4, 
+      "publish_date": "2011-04-17 18:56:28"
+    }
+  }, 
+  {
+    "pk": 10, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 9, 
+      "template_name": "", 
+      "lft": 8, 
+      "language_code": "en", 
+      "registration_required": true, 
+      "author": 1, 
+      "is_translation": false, 
+      "sites": [
+        1
+      ], 
+      "content": "Page for authentificated (logged in) users.", 
+      "tree_id": 1, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 1, 
+      "tags": "", 
+      "menu_name": "Only registered users", 
+      "last_modified": "2011-04-17 19:32:08", 
+      "url_type": false, 
+      "slug": "only-registered-users", 
+      "level": 1, 
+      "url": "", 
+      "title": "Only registered users", 
+      "translates": 10, 
+      "publish_date": "2011-04-17 19:32:08"
+    }
+  }, 
+  {
+    "pk": 11, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 9, 
+      "template_name": "", 
+      "lft": 8, 
+      "language_code": "pl", 
+      "registration_required": true, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 3, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 6, 
+      "tags": "", 
+      "menu_name": "Tylko zarejestrowani u\u017cytkownicy", 
+      "last_modified": "2011-04-17 20:09:07", 
+      "url_type": false, 
+      "slug": "tylko-zarejestrowani-uzytkownicy", 
+      "level": 1, 
+      "url": "", 
+      "title": "Tylko zarejestrowani u\u017cytkownicy", 
+      "translates": 10, 
+      "publish_date": "2011-04-17 20:09:07"
+    }
+  }, 
+  {
+    "pk": 12, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 2, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "pl", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        2
+      ], 
+      "content": "", 
+      "tree_id": 4, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Inna strona", 
+      "last_modified": "2011-04-17 20:10:21", 
+      "url_type": false, 
+      "slug": "inna-strona", 
+      "level": 0, 
+      "url": "", 
+      "title": "Inna strona", 
+      "translates": 5, 
+      "publish_date": "2011-04-17 20:10:21"
+    }
+  }, 
+  {
+    "pk": 13, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 10, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "fr", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 5, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Accueil", 
+      "last_modified": "2011-04-17 20:12:00", 
+      "url_type": true, 
+      "slug": "accueil", 
+      "level": 0, 
+      "url": "/", 
+      "title": "Accueil", 
+      "translates": 1, 
+      "publish_date": "2011-04-17 20:12:00"
+    }
+  }, 
+  {
+    "pk": 14, 
     "model": "cms.page", 
     "fields": {
       "rght": 3, 
@@ -215,22 +434,145 @@
       "sites": [
         1
       ], 
-      "content": "cul", 
-      "tree_id": 3, 
+      "content": "", 
+      "tree_id": 5, 
       "enable_comments": false, 
       "status": true, 
-      "parent": 3, 
+      "parent": 13, 
       "tags": "", 
-      "menu_name": "cul", 
-      "last_modified": "2011-04-15 03:33:22", 
+      "menu_name": "Cul", 
+      "last_modified": "2011-04-17 20:12:30", 
       "url_type": false, 
       "slug": "cul", 
       "level": 1, 
       "url": "", 
-      "absolute_url": "/accueil/cul/", 
-      "title": "cul", 
+      "title": "Cul", 
+      "translates": 2, 
+      "publish_date": "2011-04-17 20:12:30"
+    }
+  }, 
+  {
+    "pk": 15, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 5, 
+      "template_name": "", 
+      "lft": 4, 
+      "language_code": "fr", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 5, 
+      "enable_comments": false, 
+      "status": false, 
+      "parent": 13, 
+      "tags": "", 
+      "menu_name": "Projet", 
+      "last_modified": "2011-04-17 20:13:38", 
+      "url_type": false, 
+      "slug": "projet", 
+      "level": 1, 
+      "url": "", 
+      "title": "Projet", 
+      "translates": 3, 
+      "publish_date": "2011-04-17 20:13:38"
+    }
+  }, 
+  {
+    "pk": 16, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 7, 
+      "template_name": "", 
+      "lft": 6, 
+      "language_code": "fr", 
+      "registration_required": true, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 5, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 13, 
+      "tags": "", 
+      "menu_name": "Seuls les utilisateurs enregistr\u00e9s", 
+      "last_modified": "2011-04-17 20:15:29", 
+      "url_type": false, 
+      "slug": "seuls-les-utilisateurs-enregistres", 
+      "level": 1, 
+      "url": "", 
+      "title": "Seuls les utilisateurs enregistr\u00e9s", 
+      "translates": 10, 
+      "publish_date": "2011-04-17 20:15:29"
+    }
+  }, 
+  {
+    "pk": 17, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 9, 
+      "template_name": "", 
+      "lft": 8, 
+      "language_code": "fr", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        1
+      ], 
+      "content": "", 
+      "tree_id": 5, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": 13, 
+      "tags": "", 
+      "menu_name": "", 
+      "last_modified": "2011-04-17 20:16:22", 
+      "url_type": false, 
+      "slug": "non-dans-le-menu", 
+      "level": 1, 
+      "url": "", 
+      "title": "Non dans le menu", 
       "translates": 4, 
-      "publish_date": "2011-04-15 03:33:22"
+      "publish_date": "2011-04-17 20:16:22"
+    }
+  }, 
+  {
+    "pk": 18, 
+    "model": "cms.page", 
+    "fields": {
+      "rght": 2, 
+      "template_name": "", 
+      "lft": 1, 
+      "language_code": "fr", 
+      "registration_required": false, 
+      "author": 1, 
+      "is_translation": true, 
+      "sites": [
+        2
+      ], 
+      "content": "", 
+      "tree_id": 6, 
+      "enable_comments": false, 
+      "status": true, 
+      "parent": null, 
+      "tags": "", 
+      "menu_name": "Autre site", 
+      "last_modified": "2011-04-17 20:17:20", 
+      "url_type": false, 
+      "slug": "autre-site", 
+      "level": 0, 
+      "url": "", 
+      "title": "Autre site", 
+      "translates": 5, 
+      "publish_date": "2011-04-17 20:17:20"
     }
   }
 ]
