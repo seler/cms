@@ -7,4 +7,3 @@ syntax: glob
 .pydevproject
 org.eclipse.core.resources.prefs
 cms.db
-settings.py
