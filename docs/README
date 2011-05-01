@@ -1,0 +1,1 @@
+Requirements: django-tagging, django-mptt, feincms
