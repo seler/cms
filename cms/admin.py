@@ -59,7 +59,7 @@ class PageForm(forms.ModelForm):
         self.fields['parent'].queryset = Page.tree.exclude(pk=self.instance.pk)
 
 
-class PageAdmin(MPTTModelAdmin):
+class PageAdmin(TreeEditor, MPTTModelAdmin):
     form = PageForm
     fieldsets = (
                  (_('Language setup'), {'fields': ('language_code', 'translates')}),
