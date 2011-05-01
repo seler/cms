@@ -9,27 +9,32 @@ from django.contrib.sites.models import Site
 from django.utils import translation
 from django.contrib.auth.models import User
 from cms.helpers import get_language
+from feincms.admin.tree_editor import TreeEditor
+
 
 class PageForm(forms.ModelForm):
-    url = forms.RegexField(label=_("URL"), max_length=100, regex=r'^[-\w/\.~]+$', required=False,
-        help_text=_("Example: '/about/contact/'. Make sure to have leading"
-                      " and trailing slashes."),
-        error_message=_("This value must contain only letters, numbers,"
-                          " dots, underscores, dashes, slashes or tildes."))
+    url = forms.RegexField(label=_("URL"), max_length=100,
+                regex=r'^[-\w/\.~]+$', required=False,
+                help_text=_("Example: '/about/contact/'. Make sure to have "
+                            "leading and trailing slashes."),
+                error_message=_("This value must contain only letters, numbers,"
+                            " dots, underscores, dashes, slashes or tildes."))
 
-    translates = forms.ModelChoiceField(queryset=Page.objects.all(), empty_label=_('[nothing]'), required=False)
-    parent = TreeNodeChoiceField(queryset=Page.tree.all(), level_indicator=u'+--', empty_label=_('[root]'), required=False)
+    translates = forms.ModelChoiceField(queryset=Page.objects.all(),
+                                    empty_label=_('[nothing]'), required=False)
+    parent = TreeNodeChoiceField(queryset=Page.tree.all(),
+                level_indicator=u'+--', empty_label=_('[root]'), required=False)
 
     class Meta:
         model = Page
-
 
     def clean_translates(self):
         a = self.cleaned_data.get('translates')
         if a != None:
             if a.language_code == self.cleaned_data.get('language_code'):
-                raise forms.ValidationError(_("Language of current page and translated page connot be the same."))
-            if self.instance not in a.translations.all() and self.cleaned_data.get('language_code') in a.get_translations_langs():
+                raise forms.ValidationError(_("Language of current page and "
+                                        "translated page connot be the same."))
+            if (self.instance not in a.translations.all() and self.cleaned_data.get('language_code') in a.get_translations_langs()):
                 raise forms.ValidationError(_("This page already has translation in %s language." % (get_language(self.cleaned_data.get('language_code')))))
         return a
 
@@ -77,3 +82,4 @@ class PageAdmin(MPTTModelAdmin):
         return super(PageAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(Page, PageAdmin)
+#admin.site.register(Page, TreeEditor)
