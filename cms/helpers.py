@@ -11,6 +11,9 @@ def get_language(language_code):
         return None
 
 def first_not_empty(*args):
+    '''
+    checks if first element of passed arguments is empty
+    '''
     for i in args:
         if i != '':
             return i

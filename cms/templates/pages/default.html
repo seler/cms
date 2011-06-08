@@ -26,6 +26,11 @@
           <h1>Flexible and robust template</h1>                            
           <h3>Now substantially improved and simplified</h3>
           <p>page content >>> {{ page.content }} <<<</p>
+          <ul>
+          	{% for p in page.images.all %}
+   				<li>photo: {{ p.name }} {{ p.url }} {{ p.original_image.url }}</li>
+			{% endfor %}
+          </ul>
         </div>
         <hr class="clear-contentunit" />          
 

@@ -150,6 +150,7 @@ INSTALLED_APPS = (
     'cms',
     'mptt',
     'tagging',
+    'imagekit'
 )
 
 # A sample logging configuration. The only tangible logging
