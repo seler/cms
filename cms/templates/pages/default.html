@@ -28,7 +28,7 @@
           <p>page content >>> {{ page.content }} <<<</p>
           <ul>
           	{% for p in page.images.all %}
-   				<li>photo: {{ p.name }} {{ p.url }} {{ p.original_image.url }}</li>
+		<li><a href="{{ p.display.url }}" title="{{ p.name }}"><img src="{{ p.thumbnail_image.url }}" alt="{{ p.name }}"/></a></li>
 			{% endfor %}
           </ul>
         </div>

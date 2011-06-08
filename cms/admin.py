@@ -71,7 +71,7 @@ class PageForm(forms.ModelForm):
 
 class ImagesInline(generic.GenericTabularInline):
     model = Photo
-    max_num =4
+    #max_num =4
 
 class PageAdmin(TreeEditor, MPTTModelAdmin):
     form = PageForm

@@ -8,7 +8,8 @@ from django.contrib.auth.models import User
 from tagging.fields import TagField
 from cms.helpers import first_not_empty
 from imagekit.models import ImageModel
-from django.contrib.content.type import generic
+from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.models import ContentType
 
 URL_TYPE_CHOICES = (
 			(False, _('slug')),
@@ -173,6 +174,6 @@ class Photo(ImageModel):
 	class IKOptions:
 		# This inner cla	ss is where we define the ImageKit options for the model
 		spec_module = 'cms.specs'
-		cache_dir = 'photos'
+		cache_dir = 'cache'
 		image_field = 'original_image'
 		save_count_as = 'num_views'
