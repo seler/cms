@@ -177,3 +177,4 @@ class Photo(ImageModel):
 		cache_dir = 'cache'
 		image_field = 'original_image'
 		save_count_as = 'num_views'
+

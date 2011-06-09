@@ -78,6 +78,11 @@ STATIC_ROOT = PROJECT_PATH + '/static_folder/'
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
 
+# TINYMCE configuration
+TINYMCE_JS_URL = STATIC_URL + 'js/tiny_mce/tiny_mce.js'
+TINYMCE_JS_ROOT = STATIC_ROOT + 'js/tiny_mce'
+
+
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
@@ -151,7 +156,8 @@ INSTALLED_APPS = (
     'cms',
     'mptt',
     'tagging',
-    'imagekit'
+    'imagekit',
+    'tinymce'
 )
 
 # A sample logging configuration. The only tangible logging

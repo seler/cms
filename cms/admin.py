@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from cms.helpers import get_language
 from feincms.admin.tree_editor import TreeEditor
 from django.contrib.contenttypes import generic
+from tinymce.widgets import TinyMCE
 
 class PageForm(forms.ModelForm):
     url = forms.RegexField(label=_("URL"), max_length=100,
@@ -20,7 +21,7 @@ class PageForm(forms.ModelForm):
                             "leading and trailing slashes."),
                 error_message=_("This value must contain only letters, numbers,"
                             " dots, underscores, dashes, slashes or tildes."))
-
+    content = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     translates = forms.ModelChoiceField(queryset=Page.objects.all(),
                                     empty_label=_('[nothing]'), required=False)
     parent = TreeNodeChoiceField(queryset=Page.tree.all(),
